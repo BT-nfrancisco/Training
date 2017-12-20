@@ -159,3 +159,21 @@ class Session(models.Model):
                session.end_date < fields.Date.today():
 
                 session.state = 'done'
+
+    @api.multi
+    def open_record(self):
+        rec_id = self.id
+
+    @api.multi
+    def open_record(self):
+        form_id = self.env.ref('openacademy.session_form')
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'openacademy.session',
+            'res_id': self.id,
+            'view_type': 'form',
+            'view_mode': 'form',
+            'view_id': form_id.id,
+            'context': {},
+            'target': 'current',
+        }

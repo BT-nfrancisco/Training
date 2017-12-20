@@ -6,7 +6,7 @@
             <field name="name">session_tree_view</field>
             <field name="model">openacademy.session</field>
             <field name="arch" type="xml">
-                <tree string="Session"
+                <tree string="Session" editable="bottom"
                       decoration-danger="duration&gt;15"
                       decoration-info="duration&lt;5">
                     <field name="name"/>
@@ -14,6 +14,8 @@
                     <field name="start_date"/>
                     <field name="duration" invisible="True" />
                     <field name="taken_seats" widget="progressbar" />
+                    <button name="open_record" type="object" class="oe_highlight" string="Open"/>
+
                 </tree>    
             </field>
         </record>
