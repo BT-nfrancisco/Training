@@ -13,5 +13,5 @@ print("Logged in as %s (uid: %d)" % (USER, uid))
 # Read Demo User db id
 sock = xmlrpc.client.ServerProxy(root + 'object')
 args = [('name', '=', 'Demo User')]
-demo_user_id= sock.execute(DB, uid, PASS, 'res.partner', 'search', args)
+demo_user_id = sock.execute(DB, uid, PASS, 'res.partner', 'search', args)
 print(demo_user_id)

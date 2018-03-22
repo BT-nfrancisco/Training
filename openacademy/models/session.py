@@ -24,11 +24,13 @@ from datetime import timedelta
 
 from odoo import models, fields, api, _
 
+
 class Session(models.Model):
     _name = 'openacademy.session'
 
     def _get_instructor_domain(self):
-        teacher_categ_id = self.env['ir.model.data'].xmlid_to_res_id('openacademy.category_teacher')
+        teacher_categ_id = self.env['ir.model.data'].xmlid_to_res_id(
+            'openacademy.category_teacher')
         if teacher_categ_id:
             return ['|', ('instructor', '=', True),
                     ('category_id', 'child_of', teacher_categ_id)]
@@ -46,7 +48,8 @@ class Session(models.Model):
 
     seats = fields.Integer(string="Number of seats", default=10)
 
-    course_id = fields.Many2one('openacademy.course', string="Course", required=True)
+    course_id = fields.Many2one('openacademy.course', string="Course",
+                                required=True)
     course_description = fields.Text(related='course_id.description',
                                      string="Course Description")
     instructor_id = fields.Many2one('res.partner', string="Instructor",
@@ -56,14 +59,15 @@ class Session(models.Model):
     attendees_count = fields.Integer(
         string="Attendees count", compute='_get_attendees_count', store=True)
 
-    taken_seats = fields.Float(string="Taken Seats", compute='_compute_taken_seats')
+    taken_seats = fields.Float(string="Taken Seats",
+                               compute='_compute_taken_seats')
     color = fields.Integer(string="Color")
-    
+
     state = fields.Selection([
-                              ('draft', "Draft"),
-                              ('confirmed', "Confirmed"),
-                              ('done', "Done")
-                              ], default='draft')
+        ('draft', "Draft"),
+        ('confirmed', "Confirmed"),
+        ('done', "Done")
+    ], default='draft')
 
     @api.depends('attendee_ids')
     def _get_attendees_count(self):
@@ -112,11 +116,11 @@ class Session(models.Model):
             self.taken_seats = 100.0 * len(self.attendee_ids) / self.seats
         return
 
-    @api.onchange('seats')        
+    @api.onchange('seats')
     def _check_seats(self):
         if self.seats <= 0:
             return {
-                'warning' : {
+                'warning': {
                     'title': _("Warning"),
                     'message': _("The number of seats must be above 0."),
                 }
@@ -137,7 +141,7 @@ class Session(models.Model):
     def _check_instructor(self):
         if self.instructor_id in self.attendee_ids:
             raise ValidationError(_("Instructor of session '%s' "
-                "cannot attend its own session") % self.name)
+                                    "cannot attend its own session") % self.name)
 
     @api.multi
     def action_confirm(self):

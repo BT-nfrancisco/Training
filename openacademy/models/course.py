@@ -1,7 +1,7 @@
 # b-*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    Copyright (c) 2015 brain-tec AG (http://www.braintec-group.com) 
+#    Copyright (c) 2015 brain-tec AG (http://www.braintec-group.com)
 #    All Right Reserved
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -21,6 +21,7 @@
 
 from odoo import models, fields, api
 
+
 class Course(models.Model):
     _name = 'openacademy.course'
 
@@ -30,7 +31,9 @@ class Course(models.Model):
     name = fields.Char(string="Course")
     description = fields.Text(string="Course Description")
     responsible_id = fields.Many2one('res.users', string="Responsible")
-    session_ids = fields.One2many(comodel_name='openacademy.session', inverse_name='course_id', string="Session")
+    session_ids = fields.One2many(comodel_name='openacademy.session',
+                                  inverse_name='course_id',
+                                  string="Session")
 
     @api.multi
     def copy(self, default):
@@ -48,4 +51,3 @@ class Course(models.Model):
          'UNIQUE(name)',
          "The course title must be unique"),
     ]
-

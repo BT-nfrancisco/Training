@@ -6,7 +6,7 @@
     'author': "brain-tec AG",
     'category': "Education",
     'version': "1.0",
-    'depends': ['base','board'],
+    'depends': ['base', 'board'],
     'demo': ['demo/demo.xml'],
     'data': ['data/cron.xml',
              'wizard/wizard_view.xml',
