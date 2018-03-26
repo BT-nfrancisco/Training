@@ -21,5 +21,17 @@
             <field name="name">Level 2</field>
             <field name="parent_id" ref="category_teacher"/>
         </record>
+        <record model="openacademy.session" id="session_1">
+            <field name="name">Session_test1</field>
+            <field name="start_date">2018-03-16</field>
+            <field name="seats">30</field>
+            <field name="course_id" ref="openacademy.course_1"/>
+       </record>
+        <record model="openacademy.session" id="session_2">
+            <field name="name">Session_test2</field>
+            <field name="duration">24</field>
+            <field name="seats">2</field>
+            <field name="course_id" ref="openacademy.course_1"/>
+        </record>
     </data>
 </odoo>
