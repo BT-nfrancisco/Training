@@ -10,3 +10,5 @@ class Course(models.Model):
 
     title = fields.Char(string='Title')
     description = fields.Text(string='Description of the course')
+    sessions = fields.One2many('session', 'related_course', string='Sessions')
+    responsible = fields.Many2one('res.users', string='Responsible')

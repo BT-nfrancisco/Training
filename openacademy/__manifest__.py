@@ -10,7 +10,9 @@
     # data files always loaded at installation
     'data': [
         "views/courses_menu.xml",
-        "views/course_views.xml"
+        "views/course_views.xml",
+        "views/sessions_menu.xml",
+        "views/session_views.xml"
     ],
     # data files containing optionally loaded demonstration data
     'demo': [

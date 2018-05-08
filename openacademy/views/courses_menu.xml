@@ -2,7 +2,7 @@
 <odoo>
 
     <record id="action_courses" model="ir.actions.act_window">
-        <field name="name">SCIENCES</field>
+        <field name="name">Subjects</field>
         <field name="res_model">course</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
