@@ -21,13 +21,18 @@
             <field name="arch" type="xml">
                 <form string="Session">
                     <group>
-                    <field name="name"/>
-                    <field name="start_date"/>
-                    <field name="duration"/>
-                    <field name="number_of_seats"/>
-                    <field name="related_course"/>
-                    <field name="instructor"/>
+                        <field name="name"/>
+                        <field name="start_date"/>
+                        <field name="duration"/>
+                        <field name="number_of_seats"/>
+                        <field name="related_course"/>
+                        <field name="instructor"/>
                     </group>
+                    <notebook>
+                        <page string="Atendees">
+                            <field name="atendees"/>
+                        </page>
+                    </notebook>
                 </form>
             </field>
         </record>

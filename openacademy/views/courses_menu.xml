@@ -12,7 +12,7 @@
     </record>
 
     <menuitem id="menu_root" name="openacademy"/>
-    <menuitem id="menu_config" name="courses" parent="menu_root"/>
-    <menuitem id="menu" parent="menu_config" name="menu" action="action_courses"/>
+    <menuitem id="menu_config" name="Options" parent="menu_root"/>
+    <menuitem id="menu" parent="menu_config" name="Courses" action="action_courses"/>
 
 </odoo>

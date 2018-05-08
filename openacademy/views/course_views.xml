@@ -16,9 +16,17 @@
             <field name="model">course</field>
             <field name="arch" type="xml">
                 <form string="Courses">
-                    <group>
-                        <field name="title"/>
-                        <field name="description"/>
+                    <group colspan="4">
+                        <group colspan="2">
+                            <field name="title"/>
+                            <field name="description"/>
+                            <field name="responsible" />
+                        </group>
+                        <notebook colspan="4">
+                            <page string="List of Sessions">
+                                <field name="sessions"/>
+                            </page>
+                        </notebook>
                     </group>
                 </form>
             </field>

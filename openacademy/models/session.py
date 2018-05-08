@@ -14,3 +14,4 @@ class Session(models.Model):
     number_of_seats = fields.Integer(string='Number of seats')
     related_course = fields.Many2one('course', string='Course')
     instructor = fields.Many2one('res.partner', string='Instructor')
+    atendees = fields.Many2many('res.partner', 'session_partner_ref', string='Atendees')
