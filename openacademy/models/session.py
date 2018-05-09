@@ -63,3 +63,14 @@ class Session(models.Model):
                     'message': "There are more attendees than number of seats, try to increase them",
                 }
             }
+
+    @api.constrains('attendees')
+    def __on_attendee_added(self):
+        for attendee in self.attendees:
+            if attendee.instructor:
+                raise Exception('Attendee is an instructor', 'The instructor can not be an attendee!')
+
+    @api.constrains('instructor')
+    def __on_attendee_added(self):
+        if self.instructor in self.attendees:
+            raise Exception('Instructor invalid', 'The instructor can not be also an attendee!')

@@ -12,3 +12,8 @@ class Course(models.Model):
     description = fields.Text(string='Description of the course')
     sessions = fields.One2many('session', 'related_course', string='Sessions')
     responsible = fields.Many2one('res.users', string='Responsible')
+
+    _sql_constraints = [
+        ('title_description', 'CHECK(title != description)', 'Title and descriptions must be different'),
+        ('title_unique', 'UNIQUE(title)', 'Title must be unique')
+    ]
