@@ -19,11 +19,12 @@
                 <field name="email" position="after">
                     <field name="instructor"/>
                 </field>
-                <page name="sales_purchases" position="after">
+                <xpath expr="//page[@name='sales_purchases']" position="after">
                     <page name="sessions" string="Sessions">
                         <field name="sessions"/>
                     </page>
-                </page>
+                </xpath>
+
             </field>
         </record>
 
