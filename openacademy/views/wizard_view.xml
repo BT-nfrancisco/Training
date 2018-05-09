@@ -1,0 +1,31 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="session_wizard_form_view">
+            <field name="name">Add attendees to session</field>
+            <field name="model">wizard</field>
+            <field name="arch" type="xml">
+                <form string="Attendees">
+                    <group colspan="4">
+                        <group colspan="2">
+                            <field name="wizard_session"/>
+                        </group>
+                        <notebook colspan="4">
+                            <page string="List of Attendees">
+                                <field name="attendees"/>
+                            </page>
+                        </notebook>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <act_window id="session_wizard"
+                    name="Add attendees to the session"
+                    src_model="session"
+                    res_model="wizard"
+                    view_mode="form"
+                    target="new"
+                    key2="client_action_multi"/>
+    </data>
+</odoo>

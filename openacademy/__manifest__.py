@@ -14,7 +14,8 @@
         "views/sessions_menu.xml",
         "views/session_views.xml",
         "views/partner_menu.xml",
-        "views/partner_views.xml"
+        "views/partner_views.xml",
+        "views/wizard_view.xml"
     ],
     # data files containing optionally loaded demonstration data
     'demo': [
