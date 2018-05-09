@@ -15,7 +15,7 @@ class Session(models.Model):
     duration = fields.Integer(string='Duration')
     number_of_seats = fields.Integer(string='Number of seats')
     related_course = fields.Many2one('course', string='Course')
-    instructor = fields.Many2one('res.partner', string='Instructor')
+    instructor = fields.Many2one('res.partner', string='Instructor', domain=[('instructor', '=', True)])
     attendees = fields.Many2many('res.partner', 'session_partner_ref', string='Attendees')
     taken_seats = fields.Float(compute='_apply_taken_seats', string='Taken seats')
     end_date = fields.Date(string='End Date', compute='_apply_end_date', inverse='_set_duration')
