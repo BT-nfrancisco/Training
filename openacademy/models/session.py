@@ -43,3 +43,23 @@ class Session(models.Model):
             duration_object = timedelta(days=rec.duration)
             start_date = end_date_object + duration_object
             rec.start_date = start_date.strftime(DATE_FORMAT)
+
+    @api.onchange('number_of_seats')
+    def _on_change_taken_seats(self):
+        if self.number_of_seats < 0:
+            return {
+                'warning': {
+                    'title': "Wrong number of seats",
+                    'message': "Number of seats should not be negative!",
+                }
+            }
+
+    @api.onchange('attendees', 'number_of_seats')
+    def _on_change_attendees(self):
+        if len(self.attendees) > self.number_of_seats:
+            return {
+                'warning': {
+                    'title': "Too many attendees",
+                    'message': "There are more attendees than number of seats, try to increase them",
+                }
+            }
