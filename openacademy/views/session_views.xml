@@ -7,8 +7,10 @@
                 <tree string="Subjects">
                     <field name="name"/>
                     <field name="start_date"/>
+                    <field name="end_date"/>
                     <field name="duration"/>
                     <field name="number_of_seats"/>
+                    <field name="taken_seats" widget="progressbar"/>
                     <field name="related_course"/>
                     <field name="instructor"/>
                 </tree>
@@ -23,6 +25,7 @@
                     <group>
                         <field name="name"/>
                         <field name="start_date"/>
+                        <field name="end_date"/>
                         <field name="duration"/>
                         <field name="number_of_seats"/>
                         <field name="related_course"/>
@@ -30,7 +33,7 @@
                     </group>
                     <notebook>
                         <page string="Atendees">
-                            <field name="atendees"/>
+                            <field name="attendees"/>
                         </page>
                     </notebook>
                 </form>
