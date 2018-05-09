@@ -13,6 +13,7 @@
                     <field name="taken_seats" widget="progressbar"/>
                     <field name="related_course"/>
                     <field name="instructor"/>
+                    <field name="course_description"/>
                 </tree>
             </field>
         </record>
@@ -30,6 +31,7 @@
                         <field name="number_of_seats"/>
                         <field name="related_course"/>
                         <field name="instructor"/>
+                        <field name="course_description"/>
                     </group>
                     <notebook>
                         <page string="Atendees">

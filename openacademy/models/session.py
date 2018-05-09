@@ -19,6 +19,7 @@ class Session(models.Model):
     attendees = fields.Many2many('res.partner', 'session_partner_ref', string='Attendees')
     taken_seats = fields.Float(compute='_apply_taken_seats', string='Taken seats')
     end_date = fields.Date(string='End Date', compute='_apply_end_date', inverse='_set_duration')
+    course_description = fields.Text(related='related_course.description', store=False, string='Course description')
 
     @api.depends('number_of_seats', 'attendees')
     def _apply_taken_seats(self):
