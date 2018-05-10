@@ -13,9 +13,9 @@ class Wizard(models.TransientModel):
     attendees = fields.Many2many('res.partner', 'partners_ref', string="Attendees")
 
     @api.one
-    def save_results(self):
+    def save_results_v10(self):
         for new_attendee in self.attendees:
             self.wizard_session.attendees.write({(4, new_attendee.id)})
 
-    def save_results_v11(self):
-        self.session.attendees |= self.attendees
+    def save_results(self):
+        self.wizard_session.attendees |= self.attendees
