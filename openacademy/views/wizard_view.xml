@@ -16,6 +16,8 @@
                             </page>
                         </notebook>
                     </group>
+                    <button string="Save" type="object" name="save_results"/>
+                    <button string="Cancel" type="object" special="cancel"/>
                 </form>
             </field>
         </record>
@@ -26,6 +28,8 @@
                     res_model="wizard"
                     view_mode="form"
                     target="new"
-                    key2="client_action_multi"/>
+                    key2="client_action_multi"
+                    context="{'default_wizard_session': active_id}"
+        />
     </data>
 </odoo>
