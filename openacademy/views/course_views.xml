@@ -20,7 +20,7 @@
                         <group colspan="2">
                             <field name="title"/>
                             <field name="description"/>
-                            <field name="responsible" />
+                            <field name="responsible"/>
                         </group>
                         <notebook colspan="4">
                             <page string="List of Sessions">
@@ -39,6 +39,12 @@
                 <search>
                     <field name="title"/>
                     <field name="description"/>
+                    <filter name="responsible_filter" string="Responsible"
+                            domain="[('responsible.id', '=', uid)]"/>
+                    <group string="Group By">
+                        <filter name="group_by_responsible" string="Responsible"
+                                context="{'group_by': 'responsible'}"/>
+                    </group>
                 </search>
             </field>
         </record>

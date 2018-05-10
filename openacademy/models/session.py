@@ -20,6 +20,9 @@ class Session(models.Model):
     taken_seats = fields.Float(compute='_apply_taken_seats', string='Taken seats')
     end_date = fields.Date(string='End Date', compute='_apply_end_date', inverse='_set_duration')
     course_description = fields.Text(related='related_course.description', store=False, string='Course description')
+    color = fields.Integer(string="Color")
+    duration_hours = fields.Integer(string="Duration in hours", compute="_get_duration_in_hours", store=True)
+    num_attendees = fields.Integer(string="Number of attendees", compute="_get_num_attendees", store=True)
 
     @api.depends('number_of_seats', 'attendees')
     def _apply_taken_seats(self):
@@ -74,3 +77,26 @@ class Session(models.Model):
     def __on_attendee_added(self):
         if self.instructor in self.attendees:
             raise Exception('Instructor invalid', 'The instructor can not be also an attendee!')
+
+    @api.multi
+    def open_session_form(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'session',
+            'res_id': self.id,
+            'view_type': 'form',
+            'view_mode': 'form',
+            'view_id': self.env.ref('openacademy.session_form_view').id,
+            'context': {},
+            'target': 'current'
+        }
+
+    @api.depends('duration')
+    def _get_duration_in_hours(self):
+        for rec in self:
+            rec.duration_hours = rec.duration * 24
+
+    @api.depends('attendees')
+    def _get_num_attendees(self):
+        for rec in self:
+            rec.num_attendees = len(rec.attendees)
