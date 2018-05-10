@@ -23,6 +23,9 @@ class Session(models.Model):
     color = fields.Integer(string="Color")
     duration_hours = fields.Integer(string="Duration in hours", compute="_get_duration_in_hours", store=True)
     num_attendees = fields.Integer(string="Number of attendees", compute="_get_num_attendees", store=True)
+    state = fields.Selection(string="State",
+                             selection=[('draft', 'Draft'), ('confirmed', 'Confirmed'), ('done', 'Done')],
+                             default='draft')
 
     @api.depends('number_of_seats', 'attendees')
     def _apply_taken_seats(self):
@@ -100,3 +103,21 @@ class Session(models.Model):
     def _get_num_attendees(self):
         for rec in self:
             rec.num_attendees = len(rec.attendees)
+
+    @api.multi
+    def state_to_confirmed(self):
+        self.state = "confirmed"
+
+    @api.multi
+    def state_to_draft(self):
+        self.state = "draft"
+
+    @api.multi
+    def state_to_done(self, b):
+        self.state = "done"
+
+    @api.multi
+    def to_confirm(self):
+        for rec in self:
+            if datetime.now() > datetime.strptime(rec.end_date, DATE_FORMAT):
+                rec.state = "done"

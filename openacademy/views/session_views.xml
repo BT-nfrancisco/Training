@@ -25,6 +25,12 @@
             <field name="model">session</field>
             <field name="arch" type="xml">
                 <form string="Session">
+                    <header>
+                        <button string="Confirm" states="draft" type="object" name="state_to_confirmed" class="oe_highlight"/>
+                        <button string="Draft" states="confirmed,done" type="object" name="state_to_draft"/>
+                        <button string="Done" states="confirmed" type="object" name="state_to_done" class="oe_highlight"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
                     <group>
                         <field name="name"/>
                         <field name="start_date"/>
