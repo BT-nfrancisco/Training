@@ -4,6 +4,7 @@
 from odoo import fields, models, api
 from datetime import datetime, timedelta
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DATE_FORMAT
+from odoo import _
 
 
 class Session(models.Model):
@@ -55,8 +56,8 @@ class Session(models.Model):
         if self.number_of_seats < 0:
             return {
                 'warning': {
-                    'title': "Wrong number of seats",
-                    'message': "Number of seats should not be negative!",
+                    'title': _("Wrong number of seats"),
+                    'message': _("Number of seats should not be negative!"),
                 }
             }
 
@@ -65,8 +66,8 @@ class Session(models.Model):
         if len(self.attendees) > self.number_of_seats:
             return {
                 'warning': {
-                    'title': "Too many attendees",
-                    'message': "There are more attendees than number of seats, try to increase them",
+                    'title': _("Too many attendees"),
+                    'message': _("There are more attendees than number of seats, try to increase them"),
                 }
             }
 
@@ -74,12 +75,12 @@ class Session(models.Model):
     def __on_attendee_added(self):
         for attendee in self.attendees:
             if attendee.instructor:
-                raise Exception('Attendee is an instructor', 'The instructor can not be an attendee!')
+                raise Exception(_('Attendee is an instructor'), _('The instructor can not be an attendee!'))
 
     @api.constrains('instructor')
     def __on_attendee_added(self):
         if self.instructor in self.attendees:
-            raise Exception('Instructor invalid', 'The instructor can not be also an attendee!')
+            raise Exception(_('Instructor invalid'), _('The instructor can not be also an attendee!'))
 
     @api.multi
     def open_session_form(self):
