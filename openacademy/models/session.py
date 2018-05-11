@@ -113,11 +113,14 @@ class Session(models.Model):
         self.state = "draft"
 
     @api.multi
-    def state_to_done(self, b):
+    def state_to_done(self):
         self.state = "done"
 
     @api.multi
     def to_confirm(self):
-        for rec in self:
-            if datetime.now() > datetime.strptime(rec.end_date, DATE_FORMAT):
-                rec.state = "done"
+        a = 3
+        # for rec in self:
+        #     isOlder = datetime.now() > datetime.strptime(rec.end_date, DATE_FORMAT)
+        #     isConfirmed = rec.state == 'done'
+        #     if isOlder and isConfirmed:
+        #         rec.state = "done"
