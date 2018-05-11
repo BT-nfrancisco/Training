@@ -18,7 +18,8 @@
         "views/wizard_view.xml",
         "data/scheduler.xml",
         "security/security.xml",
-        "security/ir.model.access.csv"
+        "security/ir.model.access.csv",
+        "reports/session_reports.xml"
     ],
     # data files containing optionally loaded demonstration data
     'demo': [
