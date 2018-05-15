@@ -38,10 +38,18 @@ class Session(models.Model):
                                         ('done', 'Done')],
                              default='draft')
 
+    _defaults = {
+        'date_start': lambda *a: datetime.now().strftime('%Y-%m-%d'),
+        'duration': 5
+    }
+
     @api.depends('number_of_seats', 'attendees')
     def _apply_taken_seats(self):
         for rec in self:
-            rec.taken_seats = len(rec.attendees) * 100 / rec.number_of_seats
+            if len(rec.attendees) > 0:
+                rec.taken_seats = len(rec.attendees) * 100 / rec.number_of_seats
+            else:
+                rec.taken_seats = 0
 
     @api.depends('start_date', 'taken_seats')
     def _apply_end_date(self):
