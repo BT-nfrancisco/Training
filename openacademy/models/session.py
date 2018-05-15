@@ -16,16 +16,26 @@ class Session(models.Model):
     duration = fields.Integer(string='Duration')
     number_of_seats = fields.Integer(string='Number of seats')
     related_course = fields.Many2one('course', string='Course')
-    instructor = fields.Many2one('res.partner', string='Instructor', domain=[('instructor', '=', True)])
-    attendees = fields.Many2many('res.partner', 'session_partner_ref', string='Attendees')
-    taken_seats = fields.Float(compute='_apply_taken_seats', string='Taken seats')
-    end_date = fields.Date(string='End Date', compute='_apply_end_date', inverse='_set_duration')
-    course_description = fields.Text(related='related_course.description', store=False, string='Course description')
+    instructor = fields.Many2one('res.partner', string='Instructor',
+                                 domain=[('instructor', '=', True)])
+    attendees = fields.Many2many('res.partner', 'session_partner_ref',
+                                 string='Attendees')
+    taken_seats = fields.Float(compute='_apply_taken_seats',
+                               string='Taken seats')
+    end_date = fields.Date(string='End Date', compute='_apply_end_date',
+                           inverse='_set_duration')
+    course_description = fields.Text(related='related_course.description',
+                                     store=False, string='Course description')
     color = fields.Integer(string="Color")
-    duration_hours = fields.Integer(string="Duration in hours", compute="_get_duration_in_hours", store=True)
-    num_attendees = fields.Integer(string="Number of attendees", compute="_get_num_attendees", store=True)
+    duration_hours = fields.Integer(string="Duration in hours",
+                                    compute="_get_duration_in_hours",
+                                    store=True)
+    num_attendees = fields.Integer(string="Number of attendees",
+                                   compute="_get_num_attendees", store=True)
     state = fields.Selection(string="State",
-                             selection=[('draft', 'Draft'), ('confirmed', 'Confirmed'), ('done', 'Done')],
+                             selection=[('draft', 'Draft'),
+                                        ('confirmed', 'Confirmed'),
+                                        ('done', 'Done')],
                              default='draft')
 
     @api.depends('number_of_seats', 'attendees')
@@ -67,7 +77,8 @@ class Session(models.Model):
             return {
                 'warning': {
                     'title': _("Too many attendees"),
-                    'message': _("There are more attendees than number of seats, try to increase them"),
+                    'message': _(
+                        "There are more attendees than number of seats, try to increase them"),
                 }
             }
 
@@ -75,12 +86,14 @@ class Session(models.Model):
     def __on_attendee_added(self):
         for attendee in self.attendees:
             if attendee.instructor:
-                raise Exception(_('Attendee is an instructor'), _('The instructor can not be an attendee!'))
+                raise Exception(_('Attendee is an instructor'),
+                                _('The instructor can not be an attendee!'))
 
     @api.constrains('instructor')
     def __on_attendee_added(self):
         if self.instructor in self.attendees:
-            raise Exception(_('Instructor invalid'), _('The instructor can not be also an attendee!'))
+            raise Exception(_('Instructor invalid'),
+                            _('The instructor can not be also an attendee!'))
 
     @api.multi
     def open_session_form(self):
@@ -119,9 +132,11 @@ class Session(models.Model):
 
     @api.multi
     def to_confirm(self):
-        a = 3
-        # for rec in self:
-        #     isOlder = datetime.now() > datetime.strptime(rec.end_date, DATE_FORMAT)
-        #     isConfirmed = rec.state == 'done'
-        #     if isOlder and isConfirmed:
-        #         rec.state = "done"
+        # sessions = self.env['session']
+        sessions = self.search([])
+        for rec in sessions:
+            isOlder = datetime.now() > datetime.strptime(rec.end_date,
+                                                         DATE_FORMAT)
+            isConfirmed = rec.state == 'confirmed'
+            if isOlder and isConfirmed:
+                rec.state = "done"
