@@ -1,3 +1,3 @@
 from . import course
-from . import session
 from . import partner_inheritance
+from . import session

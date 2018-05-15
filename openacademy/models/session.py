@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models, api
 from datetime import datetime, timedelta
+
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DATE_FORMAT
+
 from odoo import _
+from odoo import fields, models, api
 
 
 class Session(models.Model):

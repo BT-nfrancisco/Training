@@ -25,5 +25,6 @@
     'demo': [
         "views/demo_data.xml"
     ],
-    'auto_install': False  # If module and all its dependencies have to be installed automatically
+    'auto_install': False
+    # If module and all its dependencies have to be installed automatically
 }

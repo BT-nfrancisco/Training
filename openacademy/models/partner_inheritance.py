@@ -9,4 +9,5 @@ class Partner(models.Model):
     _inherit = 'res.partner'
 
     instructor = fields.Boolean(string='Instructor')
-    sessions = fields.Many2many('session', 'partner_session_ref', string='Sessions')
+    sessions = fields.Many2many('session', 'partner_session_ref',
+                                string='Sessions')

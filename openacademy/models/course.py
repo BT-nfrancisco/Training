@@ -14,6 +14,7 @@ class Course(models.Model):
     responsible = fields.Many2one('res.users', string='Responsible')
 
     _sql_constraints = [
-        ('different_title_description', 'CHECK(title != description)', 'Title and descriptions must be different'),
+        ('different_title_description', 'CHECK(title != description)',
+         'Title and descriptions must be different'),
         ('title_unique', 'UNIQUE(title)', 'Title must be unique')
     ]

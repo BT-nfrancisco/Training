@@ -10,7 +10,8 @@ class Wizard(models.TransientModel):
 
     # wizard_session = fields.Many2one('session', string='Session', default=get_default_session)
     wizard_session = fields.Many2one('session', string='Session')
-    attendees = fields.Many2many('res.partner', 'partners_ref', string="Attendees")
+    attendees = fields.Many2many('res.partner', 'partners_ref',
+                                 string="Attendees")
 
     @api.one
     def save_results_v10(self):
