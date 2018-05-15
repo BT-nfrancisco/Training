@@ -40,8 +40,7 @@ courses_id = sock.execute('training', uid, 'admin', 'course', 'search',
 course_name = "Flying with your brain"
 
 id = sock.execute_kw('training', uid, 'admin', 'session', 'create', [{
-    'name': course_name, 'number_of_seats': 50,
-    'related_course': courses_id[0], 'duration': '5'
+    'name': course_name, 'related_course': courses_id[0],
 }])
 
 print("Added course " + course_name + " with id " + str(id))

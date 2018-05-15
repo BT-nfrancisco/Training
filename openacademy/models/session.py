@@ -48,7 +48,7 @@ class Session(models.Model):
     @api.depends('number_of_seats', 'attendees')
     def _apply_taken_seats(self):
         for rec in self:
-            if len(rec.attendees) > 0:
+            if len(rec.attendees) > 0 and len(rec.number_of_seats) > 0:
                 rec.taken_seats = len(rec.attendees) * 100 / rec.number_of_seats
             else:
                 rec.taken_seats = 0
