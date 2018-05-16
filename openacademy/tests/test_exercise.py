@@ -61,7 +61,8 @@ class TestOpenacademy(common.TransactionCase):
         duration_before_change = first_session.duration
         end_date_before_change = first_session.end_date
 
-        end_date_object = datetime.strptime(end_date_before_change, DATE_FORMAT)
+        end_date_object = datetime.strptime(end_date_before_change,
+                                            DATE_FORMAT)
         update_days = timedelta(days=2)
 
         end_date_object = end_date_object + update_days
