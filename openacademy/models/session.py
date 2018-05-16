@@ -48,7 +48,7 @@ class Session(models.Model):
     @api.depends('number_of_seats', 'attendees')
     def _apply_taken_seats(self):
         for rec in self:
-            if len(rec.attendees) > 0 and len(rec.number_of_seats) > 0:
+            if len(rec.attendees) > 0 and rec.number_of_seats > 0:
                 rec.taken_seats = len(rec.attendees) * 100 / rec.number_of_seats
             else:
                 rec.taken_seats = 0
@@ -67,9 +67,9 @@ class Session(models.Model):
     def _set_duration(self):
         for rec in self:
             end_date_object = datetime.strptime(rec.end_date, DATE_FORMAT)
-            duration_object = timedelta(days=rec.duration)
-            start_date = end_date_object + duration_object
-            rec.start_date = start_date.strftime(DATE_FORMAT)
+            start_date_object = datetime.strptime(rec.start_date, DATE_FORMAT)
+            duration = end_date_object - start_date_object
+            rec.duration = duration.days
 
     @api.onchange('number_of_seats')
     def _on_change_taken_seats(self):
