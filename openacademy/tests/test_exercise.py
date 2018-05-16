@@ -4,33 +4,39 @@ from odoo.tests import common
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DATE_FORMAT
 
 
+def create_two_partners(self):
+    self.env['res.partner'].create({
+        'name': 'New Partner 1',
+        'email': 'newpartnerm@example.com',
+    })
+
+    self.env['res.partner'].create({
+        'name': 'New Partner 2',
+        'email': 'newpartnerm@example.com',
+    })
+
+
 class TestOpenacademy(common.TransactionCase):
 
     def setUp(self):
         super(TestOpenacademy, self).setUp()
 
-        self.env['res.partner'].create({
-            'name': 'New Partner',
-            'email': 'newpartnerm@example.com',
-        })
-
     def tearDown(self):
         super(TestOpenacademy, self).tearDown()
 
-    def xtest_numer_of_seats(self):
+    def test_numer_of_seats(self):
         session_model = self.env['session']
         sessions_ids = session_model.search([])
 
         partner_model = self.env['res.partner']
-        partner = partner_model.search([('name', '=', 'New Partner')])
-
-        # initial_session.write({'attendee_ids': [(4, partner.id)]})
+        create_two_partners(self)
+        partner = partner_model.search([('name', '=', 'New Partner 1')])
 
         first_session = sessions_ids[0]
         attendees_num_before = len(first_session.attendees)
-        # first_session.write({'attendees': [4, partner.id]})
 
-        first_session.attendees |= partner
+        first_session.write({'attendees': [(4, partner.id)]})
+        # first_session.attendees |= partner #V11
 
         found = False
 
@@ -48,9 +54,9 @@ class TestOpenacademy(common.TransactionCase):
 
     def test_duration_update(self):
         session_model = self.env['session']
-        sessions_ids = session_model.search([])
+        sessions = session_model.search([])
 
-        first_session = sessions_ids[0]
+        first_session = sessions[0]
 
         duration_before_change = first_session.duration
         end_date_before_change = first_session.end_date
@@ -67,4 +73,34 @@ class TestOpenacademy(common.TransactionCase):
         duration_after_change = first_session.duration
 
         self.assertNotEqual(duration_before_change, duration_after_change,
-                            "BAD")
+                            "Duration has not changed after increasing the end date by 2 days")
+
+    def test_adding_attendes_wizard(self):
+        session_model = self.env['session']
+        wizard_model = self.env['wizard']
+        partner_model = self.env['res.partner']
+
+        sessions = session_model.search([])
+        first_session = sessions[0]
+
+        create_two_partners(self)
+
+        partner1 = partner_model.search([('name', '=', 'New Partner 1')])
+        partner2 = partner_model.search([('name', '=', 'New Partner 2')])
+
+        # first_session.write({'attendees': [(4, partner.id)]})
+
+        my_wizard = wizard_model.create({
+            'wizard_session': first_session.id,
+            'attendees': [(4, partner1.id), (4, partner2.id)]
+        })
+
+        my_wizard.save_results()
+
+        sessions = session_model.search([])
+        first_session = sessions[0]
+
+        self.assertIn(partner1, first_session.attendees,
+                      'Parter1 not in session')
+        self.assertIn(partner2, first_session.attendees,
+                      'Parter2 not in session')

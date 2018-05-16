@@ -140,9 +140,10 @@ class Session(models.Model):
     def state_to_done(self):
         self.state = "done"
 
-    @api.multi
+    @api.model
     def to_confirm(self):
-        # sessions = self.env['session']
+        # session = self.env['session']
+        # sessions = session.search([])
         sessions = self.search([])
         for rec in sessions:
             isOlder = datetime.now() > datetime.strptime(rec.end_date,
