@@ -15,12 +15,12 @@ class Session(models.Model):
 
     name = fields.Char(string='Name')
     start_date = fields.Date(string='Start date', default=fields.Date.today)
-    duration = fields.Integer(string='Duration')
+    duration = fields.Integer(string='Duration', default=5)
     number_of_seats = fields.Integer(string='Number of seats')
     related_course = fields.Many2one('course', string='Course')
     instructor = fields.Many2one('res.partner', string='Instructor',
                                  domain=[('instructor', '=', True)])
-    attendees = fields.Many2many('res.partner', 'session_partner_ref',
+    attendees = fields.Many2many('res.partner', 'partner_session_ref',
                                  string='Attendees')
     taken_seats = fields.Float(compute='_apply_taken_seats',
                                string='Taken seats')
@@ -40,16 +40,12 @@ class Session(models.Model):
                                         ('done', 'Done')],
                              default='draft')
 
-    _defaults = {
-        'date_start': lambda *a: datetime.now().strftime('%Y-%m-%d'),
-        'duration': 5
-    }
-
     @api.depends('number_of_seats', 'attendees')
     def _apply_taken_seats(self):
         for rec in self:
             if len(rec.attendees) > 0 and rec.number_of_seats > 0:
-                rec.taken_seats = len(rec.attendees) * 100 / rec.number_of_seats
+                rec.taken_seats = len(
+                    rec.attendees) * 100 / rec.number_of_seats
             else:
                 rec.taken_seats = 0
 
@@ -66,10 +62,12 @@ class Session(models.Model):
 
     def _set_duration(self):
         for rec in self:
-            end_date_object = datetime.strptime(rec.end_date, DATE_FORMAT)
-            start_date_object = datetime.strptime(rec.start_date, DATE_FORMAT)
-            duration = end_date_object - start_date_object
-            rec.duration = duration.days
+            if rec.end_date and rec.start_date:
+                end_date_object = datetime.strptime(rec.end_date, DATE_FORMAT)
+                start_date_object = datetime.strptime(rec.start_date,
+                                                      DATE_FORMAT)
+                duration = end_date_object - start_date_object
+                rec.duration = duration.days
 
     @api.onchange('number_of_seats')
     def _on_change_taken_seats(self):
@@ -142,12 +140,8 @@ class Session(models.Model):
 
     @api.model
     def to_confirm(self):
-        # session = self.env['session']
-        # sessions = session.search([])
-        sessions = self.search([])
+        sessions = self.search([('state', '=', 'confirmed')])
+
         for rec in sessions:
-            isOlder = datetime.now() > datetime.strptime(rec.end_date,
-                                                         DATE_FORMAT)
-            isConfirmed = rec.state == 'confirmed'
-            if isOlder and isConfirmed:
+            if datetime.now() > datetime.strptime(rec.end_date, DATE_FORMAT):
                 rec.state = "done"

@@ -1,1 +1,1 @@
-from . import wizard
+from . import add_sessions_wizard

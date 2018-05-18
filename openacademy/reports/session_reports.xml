@@ -26,7 +26,7 @@
                 name="openacademy.session_report_template"
                 file="openacademy.session_report_template"
                 attachment_use="False"
-                attachment="('SESSION_REPORT.pdf')"/>
+                attachment="('sessionReport'+(object.name or '').replace('/','')+'.pdf')"/>
 
     </data>
 </odoo>

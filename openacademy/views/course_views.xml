@@ -40,7 +40,7 @@
                     <field name="title"/>
                     <field name="description"/>
                     <filter name="responsible_filter" string="Responsible"
-                            domain="[('responsible.id', '=', uid)]"/>
+                            domain="[('responsible', '=', uid)]"/>
                     <group string="Group By">
                         <filter name="group_by_responsible" string="Responsible"
                                 context="{'group_by': 'responsible'}"/>

@@ -9,7 +9,7 @@
             <field name="doall" eval="False"/>
             <field name="model_id" ref="model_session"/>
             <field name="state">code</field>
-            <field name="code">session.to_confirm()</field>
+            <field name="code">model.to_confirm()</field>
         </record>
     </data>
 </odoo>

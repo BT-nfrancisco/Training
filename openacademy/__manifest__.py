@@ -9,6 +9,7 @@
                    """,
     # data files always loaded at installation
     'data': [
+        "data/to_done_cronjob.xml",
         "views/courses_menu.xml",
         "views/course_views.xml",
         "views/sessions_menu.xml",
@@ -16,7 +17,6 @@
         "views/partner_menu.xml",
         "views/partner_views.xml",
         "views/wizard_view.xml",
-        "data/scheduler.xml",
         "security/security.xml",
         "security/ir.model.access.csv",
         "reports/session_reports.xml"

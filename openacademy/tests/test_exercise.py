@@ -4,22 +4,21 @@ from odoo.tests import common
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DATE_FORMAT
 
 
-def create_two_partners(self):
-    self.env['res.partner'].create({
-        'name': 'New Partner 1',
-        'email': 'newpartnerm@example.com',
-    })
-
-    self.env['res.partner'].create({
-        'name': 'New Partner 2',
-        'email': 'newpartnerm@example.com',
-    })
-
-
 class TestOpenacademy(common.TransactionCase):
 
     def setUp(self):
         super(TestOpenacademy, self).setUp()
+
+        partner = self.env['res.partner']
+        partner.create({
+            'name': 'New Partner 1',
+            'email': 'newpartnerm@example.com',
+        })
+
+        partner.create({
+            'name': 'New Partner 2',
+            'email': 'newpartnerm@example.com',
+        })
 
     def tearDown(self):
         super(TestOpenacademy, self).tearDown()
@@ -29,7 +28,6 @@ class TestOpenacademy(common.TransactionCase):
         sessions_ids = session_model.search([])
 
         partner_model = self.env['res.partner']
-        create_two_partners(self)
         partner = partner_model.search([('name', '=', 'New Partner 1')])
 
         first_session = sessions_ids[0]
@@ -38,13 +36,7 @@ class TestOpenacademy(common.TransactionCase):
         first_session.write({'attendees': [(4, partner.id)]})
         # first_session.attendees |= partner #V11
 
-        found = False
-
-        for attendee in first_session.attendees:
-            if attendee.id == partner.id:
-                found = True
-
-        self.assertTrue(found,
+        self.assertTrue(partner.id in first_session.attendees.ids,
                         "Added partner not found in first session attendees list")
 
         attendees_num_after = len(first_session.attendees)
@@ -78,13 +70,11 @@ class TestOpenacademy(common.TransactionCase):
 
     def test_adding_attendes_wizard(self):
         session_model = self.env['session']
-        wizard_model = self.env['wizard']
+        wizard_model = self.env['add_sessions_wizard']
         partner_model = self.env['res.partner']
 
         sessions = session_model.search([])
         first_session = sessions[0]
-
-        create_two_partners(self)
 
         partner1 = partner_model.search([('name', '=', 'New Partner 1')])
         partner2 = partner_model.search([('name', '=', 'New Partner 2')])
@@ -93,7 +83,7 @@ class TestOpenacademy(common.TransactionCase):
 
         my_wizard = wizard_model.create({
             'wizard_session': first_session.id,
-            'attendees': [(4, partner1.id), (4, partner2.id)]
+            'wizard_session_attendees': [(4, partner1.id), (4, partner2.id)]
         })
 
         my_wizard.save_results()
