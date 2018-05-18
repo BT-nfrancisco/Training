@@ -1,7 +1,6 @@
 <odoo>
     <data>
 
-        <!--Course data-->
         <record model="openacademy.course" id="course1">
             <field name="title">Ubuntu forbegineers</field>
             <field name="description">Learn the basis of Ubuntu in this 5 minutes course0</field>
@@ -9,15 +8,6 @@
         <record model="openacademy.course" id="course2">
             <field name="title">Ubuntu for advanced users</field>
             <field name="description">Take 5 minutes more and be the master of Ubuntu</field>
-        </record>
-
-        <!--Session data-->
-        <record model="openacademy.session" id="session1">
-            <field name="name">How to login</field>
-            <field name="start_date">2018-05-24</field>
-            <field name="duration">12</field>
-            <field name="number_of_seats">60</field>
-            <field name="related_course">course2</field>
         </record>
 
     </data>
