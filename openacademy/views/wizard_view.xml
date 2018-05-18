@@ -8,7 +8,7 @@
                 <form string="Attendees">
                     <group colspan="4">
                         <group colspan="2">
-                            <field name="wizard_session"/>
+                            <!--<field name="wizard_session"/>-->
                         </group>
                         <notebook colspan="4">
                             <page string="List of Attendees">
