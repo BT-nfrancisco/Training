@@ -25,7 +25,7 @@ class Session(models.Model):
     taken_seats = fields.Float(compute='_apply_taken_seats',
                                string='Taken seats')
     end_date = fields.Date(string='End Date', compute='_apply_end_date',
-                           inverse='_set_duration')
+                           inverse='_set_duration', store=True)
     course_description = fields.Text(related='related_course.description',
                                      store=False, string='Course description')
     color = fields.Integer(string="Color")
@@ -140,8 +140,8 @@ class Session(models.Model):
 
     @api.model
     def to_confirm(self):
-        sessions = self.search([('state', '=', 'confirmed')])
+        sessions = self.search(
+            [('state', '=', 'confirmed'), ('end_date', '<=', datetime.now())])
 
         for rec in sessions:
-            if datetime.now() > datetime.strptime(rec.end_date, DATE_FORMAT):
-                rec.state = "done"
+            rec.state = "done"

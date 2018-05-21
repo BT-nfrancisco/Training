@@ -23,7 +23,8 @@
     ],
     # data files containing optionally loaded demonstration data
     'demo': [
-        "views/demo_data.xml"
+        "demo/courses_demo_data.xml",
+        "demo/sessions_demo_data.xml"
     ],
     'auto_install': False
     # If module and all its dependencies have to be installed automatically

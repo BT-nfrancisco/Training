@@ -1,11 +1,11 @@
 <odoo>
     <data>
 
-        <record model="openacademy.course" id="course1">
+        <record model="course" id="course1">
             <field name="title">Ubuntu forbegineers</field>
             <field name="description">Learn the basis of Ubuntu in this 5 minutes course0</field>
         </record>
-        <record model="openacademy.course" id="course2">
+        <record model="course" id="course2">
             <field name="title">Ubuntu for advanced users</field>
             <field name="description">Take 5 minutes more and be the master of Ubuntu</field>
         </record>
