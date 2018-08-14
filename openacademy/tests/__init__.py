@@ -1,1 +1,1 @@
-from . import test_exercise
+# from . import test_exercise
