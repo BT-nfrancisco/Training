@@ -76,8 +76,8 @@
             <field name="arch" type="xml">
                 <kanban string="Sessions Kanban View" default_group_by='related_course'>
                     <field name="color"/>
-                    <field name="name"/>
-                    <field name="related_course"/>
+                    <!--<field name="name"/>-->
+                    <!--<field name="related_course"/>-->
 
                     <templates>
                         <t t-name="kanban-box">
