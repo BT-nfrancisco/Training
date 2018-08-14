@@ -25,6 +25,22 @@
     For the new 'viewgen-java-2017.05' you need to install this package: \n
     - sudo apt install pdftk \n
     In order to run the viewgen after version 'viewgen-java-2017.05' we need to have java8 installed. Therefore we have a new ir.config.parameter 'swissdec_java_key_path_viewgen' which has to be set \n
+    
+    ******************
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    
+    \n\n\n
+    
+    \t\t
+    
+    
+    
     """,
     # data files always loaded at installation
     'data': [
