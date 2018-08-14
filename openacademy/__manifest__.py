@@ -9,7 +9,6 @@
     * Employees and hierarchies : You can define your employee with User and display hierarchies\n
     * HR Departments\n
     * HR Jobs\n
-    \n
     Required git:\n
     - git@github.com:brain-tec/BT-Developer.git#10.0
     - git@github.com:brain-tec/BT-Webkit.git#10.0
@@ -23,10 +22,8 @@
     - sudo apt-get install python-setuptools \n
     - sudo easy_install pip \n
     - sudo easy_install logilab-common \n
-    \n
     For the new 'viewgen-java-2017.05' you need to install this package: \n
     - sudo apt install pdftk \n
-    \n
     In order to run the viewgen after version 'viewgen-java-2017.05' we need to have java8 installed. Therefore we have a new ir.config.parameter 'swissdec_java_key_path_viewgen' which has to be set \n
     """,
     # data files always loaded at installation
